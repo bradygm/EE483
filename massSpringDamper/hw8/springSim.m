@@ -1,4 +1,4 @@
-springParamHW7;  % load parameters
+springParamHW8;  % load parameters
 
 % instantiate spring, controller, and reference input classes 
 % Instantiate Dynamics class
