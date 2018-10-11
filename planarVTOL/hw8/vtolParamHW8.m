@@ -1,14 +1,44 @@
-% inverted pendulum - parameter file for hw8
+% single link arm - parameter file
 addpath ./.. % adds the parent directory to the path
-beamParam % general pendulum parameters
+VTOLParam % general arm parameters
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%       PD Control: Time Design Strategy
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% tuning parameters
-tr_th = .35;%.35;          % Rise time for inner loop (theta)
+% equalibrium force
+% P.z_e = 0;
+P.f_e = P.mc*P.g+2*P.mr*P.g;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tuning Parameters for Longitudinal PD Control
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+tr_h = 7;%7; %Rise time for height (longitudinal control)
+zeta_h = .707;
+
+% parameters of the open loop transfer function
+b0_h = 1/(P.mc+2*P.mr);
+a1_h = 0.0;
+a0_h = 0.0;
+
+% coefficients for desired inner loop
+% Delta_des(s) = s^2 + alpha1*s + alpha0 = s^2 + 2*zeta*wn*s + wn^2
+wn_h = 2.2/tr_h;     % Natural frequency
+alpha1_h = 2.0*zeta_h*wn_h;
+alpha0_h = wn_h^2;
+
+% compute gains
+% Delta(s) = s^2 + (a1 + b0*kd)*s + (a0 + b0*kp)
+P.kp_h = (alpha0_h-a0_h)/b0_h;
+P.kd_h = (alpha1_h-a1_h)/b0_h;
+DC_gain_h = P.kp_h/P.kp_h;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PD Control: Time Design Strategy For Lateral Control
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+tr_th = .5;%.8;          % Rise time for inner loop (theta)
 zeta_th = 0.707;       % Damping Coefficient for inner loop (theta)
-M = 10.0;              % Time scale separation between inner and outer loop
+M = 10.0;%10.0;              % Time scale separation between inner and outer loop
 zeta_z = 0.707;        % Damping Coefficient fop outer loop (z)
 
 % saturation limits
@@ -19,7 +49,7 @@ P.theta_max = 90.0*pi/180.0;  % Max theta, rads
 %                    Inner Loop
 %---------------------------------------------------
 % parameters of the open loop transfer function
-b0_th = 12/(4*P.m2*P.ell+3*P.m1*P.ell);
+b0_th = 1/(2*P.mr*P.d^2+P.Jc);
 a1_th = 0.0;
 a0_th = 0.0;
 
@@ -39,8 +69,8 @@ DC_gain = P.kp_th/P.kp_th;
 %                    Outer Loop
 %---------------------------------------------------
 % parameters of the open loop transfer function
-b0_z = -P.g;
-a1_z = 0;
+b0_z = -(P.f_e/(P.mc+2*P.mr));
+a1_z = P.u/(P.mc+2*P.mr);
 a0_z = 0;
 
 % coefficients for desired outer loop

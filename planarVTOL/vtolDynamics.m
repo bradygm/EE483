@@ -101,9 +101,9 @@ classdef vtolDynamics < handle
             height = self.state(2);
             theta = self.state(3);
             % add Gaussian noise to outputs
-            theta_m = theta + 0.001*randn;
-            h_m = height + 0.001*randn;
-            z_m = z + 0.001*randn;
+            theta_m = theta + 0.00*randn;
+            h_m = height + 0.00*randn;
+            z_m = z + 0.00*randn;
             % return measured outputs
             y = [z_m; h_m; theta_m];
         end

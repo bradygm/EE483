@@ -59,11 +59,11 @@ classdef plotVTOLData < handle
                 ylabel('force (Nm)')
         end
         %----------------------------
-        function self = updatePlots(self, t, reference, states, ctrl1,ctrl2)
+        function self = updatePlots(self, t, referenceH, referenceZt, states, ctrl1,ctrl2)
             % update the time history of all plot variables
             self.time_history(self.index) = t;
-            self.zt_history(self.index) = reference;
-            self.hr_history(self.index) = reference;
+            self.zt_history(self.index) = referenceZt;
+            self.hr_history(self.index) = referenceH;
             self.zv_history(self.index) = states(1);
             self.h_history(self.index) = states(2);
             self.theta_history(self.index) = 180/pi*states(3);

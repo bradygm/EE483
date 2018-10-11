@@ -27,17 +27,17 @@ classdef VTOLAnimation < handle
             self.panelLength = P.pl;
             self.panelWidth = P.pw;
             figure(1), clf
-            plot([-2*P.zt0,2*P.zt0],[P.h0,P.h0],'k--'); % plot track
+            plot([-2*3,2*3],[P.h0,P.h0],'k--'); % plot track
             hold on
-            plot([-2*P.zt0,2*P.zt0],[0 0]); %Ground
+            plot([-2*3,2*3],[0 0]); %Ground
             % initialize the base and panel to initial conditions
             self=self.drawStick(P.theta0,P.zv0,P.h0);
             self=self.drawCenter(P.theta0,P.zv0,P.h0);
             self=self.drawPanel1(P.theta0,P.zv0,P.h0);
             self=self.drawPanel2(P.theta0,P.zv0,P.h0);
             self=self.drawTarget(P.zt0);
-            axis([-.5*P.zt0, 2*P.zt0, -.5*2, 2*2]);
-            pbaspect([(2*P.zt0+.5*P.zt0)/(2*2+.5*2) 1 1])
+            axis([-.5*3, 2*3, -.5*2, 2*2]);
+            pbaspect([(2*3+.5*3)/(2*2+.5*2) 1 1])
         end
         %---------------------------
         function self=drawVTOL(self, x,u)

@@ -73,7 +73,7 @@ classdef springDynamics < handle
             % re-label states for readability
             z = self.state(1);
             % add Gaussian noise to outputs
-            z_m = z + 0.001*randn;
+            z_m = z + 0.00*randn;
             % return measured outputs
             y = [z_m];
         end

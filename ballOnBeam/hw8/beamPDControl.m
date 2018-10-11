@@ -63,8 +63,8 @@ classdef beamPDControl < handle
         end
         %----------------------------
         function self = differentiateY(self, y)
-%             self.y_dot = (y-self.y_d1)/self.Ts;
-            self.y_dot = self.beta*self.y_dot + (1-self.beta)*((y-self.y_d1)/self.Ts);
+            self.y_dot = (y-self.y_d1)/self.Ts;
+%             self.y_dot = self.beta*self.y_dot + (1-self.beta)*((y-self.y_d1)/self.Ts);
             self.y_d1 = y;
         end
 

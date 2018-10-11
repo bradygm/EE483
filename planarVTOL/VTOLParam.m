@@ -19,8 +19,8 @@ P.pl = P.d/3; %panel length m
 
 % Initial Conditions
 P.h0    = 0;
-P.zv0      = 2;
-P.zt0 = 3;
+P.zv0      = 0;
+P.zt0 = 0;
 P.zvdot0 = 0;
 P.theta0 = 0;
 P.thetadot0 = 0;

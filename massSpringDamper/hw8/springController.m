@@ -36,12 +36,17 @@ classdef springController
             % compute the linearized force using PID
 %             f_tilde = self.zCtrl.PD(z_r, z, false);
             forceTemp = self.zCtrl.PD(z_r, z, false);
-            if abs(forceTemp) > self.limit
-                forceTemp = self.limit*sign(forceTemp);
-            end
-            force = forceTemp;
+
+            force = self.saturate(forceTemp);
             % compute total torque
 %             force = f_e + f_tilde;
+        end
+        %----------------------------
+        function out = saturate(self,u)
+            if abs(u) > self.limit
+                u = self.limit*sign(u);
+            end
+            out = u;
         end
     end
 end

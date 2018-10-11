@@ -1,13 +1,17 @@
-vtolParamHW7;  % load parameters
+vtolParamHW8;  % load parameters
 
 % instantiate spring, controller, and reference input classes 
 % Instantiate Dynamics class
 vtol = vtolDynamics(P);
 ctrl = vtolController(P);  
 amplitude = 1; % amplitude of reference input
-offset = 0;
-frequency = 0.01; % frequency of reference input
-reference = signalGenerator(amplitude, frequency, offset); 
+offset = 2;
+frequency = 0.05; % frequency of reference input
+referenceH = signalGenerator(amplitude, frequency, offset); 
+amplitude = 1.5; % amplitude of reference input
+offset = 3;
+frequency = 0.05; % frequency of reference input
+referenceZt = signalGenerator(amplitude, frequency, offset); 
 
 
 % instantiate the data plots and animation
@@ -18,17 +22,18 @@ animation = VTOLAnimation(P);
 t = P.t_start;  % time starts at t_start
 while t < P.t_end  
     % Get referenced inputs from signal generators
-    ref_input = reference.square(t);
+    ref_input = referenceH.square(t);
+    ref_zt = referenceZt.square(t);
     % Propagate dynamics in between plot samples
     t_next_plot = t + P.t_plot;
     while t < t_next_plot % updates control and dynamics at faster simulation rate
-        u = ctrl.u(ref_input, vtol.outputs());  % Calculate the control value
-        vtol.propagateDynamics(u/2,u/2);  % Propagate the dynamics
+        [Fl,Fr] = ctrl.u(ref_input,ref_zt, vtol.outputs());  % Calculate the control value for F
+        vtol.propagateDynamics(Fl,Fr);  % Propagate the dynamics
         t = t + P.Ts; % advance time by Ts
     end
     % update animation and data plots   
-    animation.drawVTOL(vtol.state,u);
-    dataPlot.updatePlots(t, ref_input, vtol.state, u/2,u/2);
+    animation.drawVTOL(vtol.state,ref_zt);
+    dataPlot.updatePlots(t, ref_input, ref_zt, vtol.state, Fl,Fr);
 end
 
 
