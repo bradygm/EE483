@@ -9,6 +9,7 @@ classdef springController
         b
         k
         g
+        limit
     end
     %----------------------------
     methods
@@ -21,6 +22,7 @@ classdef springController
             self.b = P.b;
             self.k = P.k;
             self.g = P.g;
+            self.limit = P.f_max;
         end
         %----------------------------
         function force = u(self, y_r, y)
@@ -33,7 +35,11 @@ classdef springController
 %             f_e = self.k*z;
             % compute the linearized force using PID
 %             f_tilde = self.zCtrl.PD(z_r, z, false);
-            force = self.zCtrl.PD(z_r, z, false);
+            forceTemp = self.zCtrl.PD(z_r, z, false);
+            if abs(forceTemp) > self.limit
+                forceTemp = self.limit*sign(forceTemp);
+            end
+            force = forceTemp;
             % compute total torque
 %             force = f_e + f_tilde;
         end

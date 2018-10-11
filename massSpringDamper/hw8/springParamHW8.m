@@ -4,7 +4,7 @@ springParam % general arm parameters
 
 %  tuning parameters
 %tr = 0.8; % part (a)
-tr = 2;
+tr = 2.2;
 zeta = 0.707;
 
 % equalibrium angle and torque

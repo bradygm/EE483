@@ -7,7 +7,7 @@ beam = ballBeamDynamics(P);
 ctrl = beamController(P);  
 amplitude = 0.15; % amplitude of reference input
 offset = 0.25;
-frequency = 0.05; % frequency of reference input
+frequency = 0.01; % frequency of reference input
 reference = signalGenerator(amplitude, frequency,offset);  
 
 % instantiate the data plots and animation

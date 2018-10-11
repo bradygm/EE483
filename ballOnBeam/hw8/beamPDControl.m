@@ -53,7 +53,7 @@ classdef beamPDControl < handle
                 u_unsat = self.kp*error - self.kd*self.y_dot;
             end
             % return saturated control signal
-            u = self.saturate(u_unsat);
+            u = u_unsat;
         end
         %----------------------------
         function self = differentiateError(self, error)
@@ -67,13 +67,7 @@ classdef beamPDControl < handle
             self.y_dot = self.beta*self.y_dot + (1-self.beta)*((y-self.y_d1)/self.Ts);
             self.y_d1 = y;
         end
-        %----------------------------
-        function out = saturate(self,u)
-            if abs(u) > self.limit
-                u = self.limit*sign(u);
-            end
-            out = u;
-        end
+
     end
 end
 

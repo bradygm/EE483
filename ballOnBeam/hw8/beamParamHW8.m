@@ -8,7 +8,7 @@ beamParam % general pendulum parameters
 % tuning parameters
 tr_th = .35;          % Rise time for inner loop (theta)
 zeta_th = 0.707;       % Damping Coefficient for inner loop (theta)
-M = 20.0;              % Time scale separation between inner and outer loop
+M = 4.0;              % Time scale separation between inner and outer loop
 zeta_z = 0.707;        % Damping Coefficient fop outer loop (z)
 
 % saturation limits

@@ -9,9 +9,8 @@ classdef beamController
         m2
         g
         ell
-        m1
-        
-        hmmMax
+        m1    
+        limit
     end
     %----------------------------
     methods
@@ -24,7 +23,7 @@ classdef beamController
             self.g = P.g;
             self.ell = P.ell;
             self.m1 = P.m1;
-            self.hmmMax = P.F_max;
+            self.limit = P.F_max;
         end
         %----------------------------
         function F = u(self, y_r, y)
@@ -38,10 +37,14 @@ classdef beamController
             % the force applied to the cart comes from the inner loop PD control
             F_tilda = self.thetaCtrl.PD(theta_r, theta, false);
             Ftemp = F_tilda + (self.m2*self.g*self.ell+2*self.m1*self.g*z)/(2*self.ell);
-            if abs(Ftemp) > self.hmmMax
-                Ftemp = self.hmmMax*sign(Ftemp);
+            F = self.saturate(Ftemp);
+        end
+        %----------------------------
+        function out = saturate(self,u)
+            if abs(u) > self.limit
+                u = self.limit*sign(u);
             end
-            F = Ftemp;
+            out = u;
         end
     end
 end
