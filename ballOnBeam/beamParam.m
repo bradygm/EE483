@@ -27,4 +27,4 @@ P.sigma = 0.05; % cutoff freq for dirty derivative
 P.beta = (2*P.sigma-P.Ts)/(2*P.sigma+P.Ts); % dirty derivative gain
 
 % control saturation limits
-P.F_max = 5; % Max Force, N
+P.F_max = 15; % Max Force, N

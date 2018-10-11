@@ -37,7 +37,7 @@ classdef plotVTOLData < handle
             subplot(3, 1, 1)
                 hold on
                 self.zt_handle = plot(self.time_history, self.zt_history, 'g');
-                self.zv_handle    = plot(self.time_history, self.zv_history, 'b');
+                self.zv_handle    = plot(self.time_history, self.h_history, 'b');
                 ylabel('Zt and Zv')
                 title('VTOL Data')
             subplot(3, 1, 2)
@@ -64,7 +64,7 @@ classdef plotVTOLData < handle
 
             
             % update the plots with associated histories
-            set(self.zv_handle, 'Xdata', self.time_history, 'Ydata', self.zv_history)
+            set(self.zv_handle, 'Xdata', self.time_history, 'Ydata', self.h_history)
             set(self.zt_handle, 'Xdata', self.time_history, 'Ydata', self.zt_history)
             set(self.theta_handle, 'Xdata', self.time_history, 'Ydata', self.theta_history)
             set(self.fl_handle, 'Xdata', self.time_history, 'Ydata', self.fl_history)

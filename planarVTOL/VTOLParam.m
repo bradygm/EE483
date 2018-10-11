@@ -18,7 +18,7 @@ P.pw = P.d/6 ; %panel width m
 P.pl = P.d/3; %panel length m
 
 % Initial Conditions
-P.h0    = 2;
+P.h0    = 0;
 P.zv0      = 2;
 P.zt0 = 3;
 P.zvdot0 = 0;
@@ -31,4 +31,8 @@ P.t_start = 0.0;  % Start time of simulation
 P.t_end = 50.0;   % End time of simulation
 P.Ts = 0.01;      % sample time for simulation
 P.t_plot = 0.1;   % the plotting and animation is updated at this rate
+
+% % dirty derivative parameters
+P.sigma = 0.05; % cutoff freq for dirty derivative
+P.beta = (2*P.sigma-P.Ts)/(2*P.sigma+P.Ts); % dirty derivative gain
 

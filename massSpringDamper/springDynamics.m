@@ -25,7 +25,8 @@ classdef springDynamics < handle
             % that represents alpha*100 % of the parameter, i.e., alpha = 0.2, means that the parameter
             % may change by up to 20%.  A different parameter value is chosen every time the simulation
             % is run.
-            alpha = 0.2;  % Uncertainty parameter
+%             alpha = 0.2;  % Uncertainty parameter
+            alpha = 0;
             self.m = P.m * (1+2*alpha*rand-alpha);  % Mass of the arm, kg
               % Length of the arm, m
             self.b = P.b * (1+2*alpha*rand-alpha);

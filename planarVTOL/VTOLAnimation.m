@@ -36,8 +36,8 @@ classdef VTOLAnimation < handle
             self=self.drawPanel1(P.theta0,P.zv0,P.h0);
             self=self.drawPanel2(P.theta0,P.zv0,P.h0);
             self=self.drawTarget(P.zt0);
-            axis([-.5*P.zt0, 2*P.zt0, -.5*P.h0, 2*P.h0]);
-            pbaspect([(2*P.zt0+.5*P.zt0)/(2*P.h0+.5*P.h0) 1 1])
+            axis([-.5*P.zt0, 2*P.zt0, -.5*2, 2*2]);
+            pbaspect([(2*P.zt0+.5*P.zt0)/(2*2+.5*2) 1 1])
         end
         %---------------------------
         function self=drawVTOL(self, x,u)
