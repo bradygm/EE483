@@ -4,13 +4,13 @@ vtolParamHW8;  % load parameters
 % Instantiate Dynamics class
 vtol = vtolDynamics(P);
 ctrl = vtolController(P);  
-amplitude = 1; % amplitude of reference input
+amplitude = 1; % amplitude of Height reference input
 offset = 2;
 frequency = 0.05; % frequency of reference input
 referenceH = signalGenerator(amplitude, frequency, offset); 
-amplitude = 1.5; % amplitude of reference input
+amplitude = 2.5; % amplitude of target reference input
 offset = 3;
-frequency = 0.05; % frequency of reference input
+frequency = 0.08; % frequency of reference input
 referenceZt = signalGenerator(amplitude, frequency, offset); 
 
 

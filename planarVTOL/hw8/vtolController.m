@@ -9,6 +9,7 @@ classdef vtolController
         thetaCtrl
         fe
         d
+        limit
     end
     %----------------------------
     methods
@@ -21,6 +22,7 @@ classdef vtolController
             % plant parameters known to controller
             self.fe = P.f_e;
             self.d = P.d;
+            self.limit = P.fmax;
         end
         %----------------------------
         function [Fl,Fr] = u(self, y_r, y2_r, y)
@@ -43,9 +45,10 @@ classdef vtolController
             % compute total torque
             F = self.fe + f_tilde;
             Km = 1;
-            Fl = (1/(2*Km))*(F-Tau/self.d);
-            Fr = (1/(2*Km))*(F+Tau/self.d);
-            
+            Fltemp = (1/(2*Km))*(F-Tau/self.d);
+            Frtemp = (1/(2*Km))*(F+Tau/self.d);
+            Fl = self.saturate(Fltemp);
+            Fr = self.saturate(Frtemp);
             
 %             force = self.saturate(forceTemp);
         end

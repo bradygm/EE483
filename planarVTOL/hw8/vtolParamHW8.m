@@ -10,7 +10,7 @@ P.f_e = P.mc*P.g+2*P.mr*P.g;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tuning Parameters for Longitudinal PD Control
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-tr_h = 7;%7; %Rise time for height (longitudinal control)
+tr_h = 3;%7; %Rise time for height (longitudinal control)
 zeta_h = .707;
 
 % parameters of the open loop transfer function
@@ -30,13 +30,16 @@ P.kp_h = (alpha0_h-a0_h)/b0_h;
 P.kd_h = (alpha1_h-a1_h)/b0_h;
 DC_gain_h = P.kp_h/P.kp_h;
 
+fprintf('\t kp_h: %f\n', P.kp_h)
+fprintf('\t kd_h: %f\n', P.kd_h)
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PD Control: Time Design Strategy For Lateral Control
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-tr_th = .5;%.8;          % Rise time for inner loop (theta)
+tr_th = .3;%.8;          % Rise time for inner loop (theta)
 zeta_th = 0.707;       % Damping Coefficient for inner loop (theta)
 M = 10.0;%10.0;              % Time scale separation between inner and outer loop
 zeta_z = 0.707;        % Damping Coefficient fop outer loop (z)

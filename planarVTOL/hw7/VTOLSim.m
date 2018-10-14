@@ -28,7 +28,7 @@ while t < P.t_end
     end
     % update animation and data plots   
     animation.drawVTOL(vtol.state,u);
-    dataPlot.updatePlots(t, ref_input, vtol.state, u/2,u/2);
+    dataPlot.updatePlots(t, ref_input,1, vtol.state, u/2,u/2);
 end
 
 

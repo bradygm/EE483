@@ -82,8 +82,8 @@ classdef ballBeamDynamics < handle
             z = self.state(1);
             theta = self.state(2);
             % add Gaussian noise to outputs
-            z_m = z + 0.0*randn;
-            theta_m = theta + 0.00*randn;
+            z_m = z + 0.001*randn;
+            theta_m = theta + 0.001*randn;
             % return measured outputs
             y = [z_m; theta_m];
         end
