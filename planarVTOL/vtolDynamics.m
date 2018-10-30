@@ -33,10 +33,10 @@ classdef vtolDynamics < handle
             % may change by up to 20%.  A different parameter value is chosen every time the simulation
             % is run.
 %             alpha = 0.2;  % Uncertainty parameter
-            alpha = 0;
+            alpha = 0.2;
             self.Jc = P.Jc * (1+2*alpha*rand-alpha);  % inertia of base
-            self.mc = P.mc * (1+2*alpha*rand-alpha);  % inertia of panel
-            self.mr = P.mr * (1+2*alpha*rand-alpha);    % spring coefficient
+            self.mc = P.mc * (1+2*alpha*rand-alpha);  % 
+            self.mr = P.mr; % * (1+2*alpha*rand-alpha);    
             self.ml = self.mr;
             self.g = P.g;
             self.d = P.d * (1+2*alpha*rand-alpha);    % Damping coefficient, Ns

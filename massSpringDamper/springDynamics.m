@@ -26,7 +26,7 @@ classdef springDynamics < handle
             % may change by up to 20%.  A different parameter value is chosen every time the simulation
             % is run.
 %             alpha = 0.2;  % Uncertainty parameter
-            alpha = 0;
+            alpha = 0.2;
             self.m = P.m * (1+2*alpha*rand-alpha);  % Mass of the arm, kg
               % Length of the arm, m
             self.b = P.b * (1+2*alpha*rand-alpha);

@@ -27,7 +27,7 @@ classdef ballBeamDynamics < handle
             % that represents alpha*100 % of the parameter, i.e., alpha = 0.2, means that the parameter
             % may change by up to 20%.  A different parameter value is chosen every time the simulation
             % is run.
-            alpha = 0;  % Uncertainty parameter
+            alpha = 0.2;  % Uncertainty parameter
             self.m1 = P.m1 * (1+2*alpha*rand-alpha);  % Mass of the pendulum, kg
             self.m2 = P.m2 * (1+2*alpha*rand-alpha);  % Mass of the cart, kg
             self.ell = P.ell * (1+2*alpha*rand-alpha);  % Length of the rod, m
