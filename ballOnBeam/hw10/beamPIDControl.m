@@ -107,7 +107,7 @@ classdef beamPIDControl < handle
         end
         %----------------------------
         function self = integrateError(self, error)
-            if (abs(self.y_dot) < .01)
+            if (abs(self.y_dot) < .03)
                 self.integrator = self.integrator + (self.Ts/2)*(error+self.error_d1);
             end
         end

@@ -5,7 +5,7 @@ springParam % general arm parameters
 %  tuning parameters
 %tr = 0.8; % part (a)
 % tr = 2.2;
-tr = 2.2;
+tr = 1.8;
 
 zeta = 0.907;
 

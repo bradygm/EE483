@@ -91,7 +91,7 @@ alpha0_z = wn_z^2;
 % Delta(s) = s^2 + (a1 + b0*kd*DC_gain)*s + (a0 + b0*kp*DC_gain)
 P.kp_z = (alpha0_z-a0_z)/(DC_gain*b0_z);
 P.ki_zlimit = 0.01;
-P.ki_z = 0.01; % integral gain for outer loop
+P.ki_z = 0.03; % integral gain for outer loop
 P.kd_z = (alpha1_z-a1_z)/(DC_gain*b0_z);
 
 fprintf('\t DC_gain: %f\n', DC_gain)

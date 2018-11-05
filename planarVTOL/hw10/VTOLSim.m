@@ -10,7 +10,7 @@ frequency = 0.01; % frequency of reference input
 referenceH = signalGenerator(amplitude, frequency, offset); 
 amplitude = 2.5; % amplitude of target reference input
 offset = 3;
-frequency = 0.08; % frequency of reference input
+frequency = 0.01; % frequency of reference input
 referenceZt = signalGenerator(amplitude, frequency, offset); 
 
 
