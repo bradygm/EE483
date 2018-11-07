@@ -1,4 +1,4 @@
-classdef springController
+classdef springController < handle
     % 
     %    This class inherits other controllers in order to organize multiple controllers.
     %
@@ -23,12 +23,12 @@ classdef springController
         function self = springController(P)
             % plant parameters known to controller
             self.m = P.m;
-            self.b = P.b;
-            self.k = P.k;
+%             self.b = P.b;
+%             self.k = P.k;
             self.g = P.g;
             self.limit = P.f_max;
             % initialize object properties
-            self.z_dot = 0.0;
+            self.z_dot = P.zdot0;
             self.z_d1 = 0.0;
             self.K = P.K;
             self.kr = P.kr;
@@ -56,7 +56,7 @@ classdef springController
             z_tilde = -self.K*x + self.kr*z_r;
 
 
-            force = self.saturate(z_tilde + f_e);
+            force = self.saturate(z_tilde + 0);
         end
         %----------------------------
         function self = differentiateZ(self, z)
