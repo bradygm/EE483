@@ -105,7 +105,7 @@ classdef vtolDynamics < handle
             h_m = height + 0.001*randn;
             z_m = z + 0.001*randn;
             % return measured outputs
-            y = [z_m; h_m; theta_m];
+            y = [h_m; z_m; theta_m];
         end
         %----------------------------
         function x = states(self)
