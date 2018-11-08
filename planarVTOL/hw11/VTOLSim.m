@@ -8,10 +8,8 @@ amplitude = 1; % amplitude of Height reference input
 offset = 2;
 frequency = 0.01; % frequency of reference input
 referenceH = signalGenerator(amplitude, frequency, offset); 
-% amplitude = 2.5; % amplitude of target reference input
-% offset = 3;
-amplitude = 0; % amplitude of target reference input
-offset = 0;
+amplitude = 2.5; % amplitude of target reference input
+offset = 3;
 frequency = 0.01; % frequency of reference input
 referenceZt = signalGenerator(amplitude, frequency, offset); 
 
