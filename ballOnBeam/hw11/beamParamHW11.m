@@ -31,7 +31,7 @@ if det(ctrb(A, B)) == 0
     disp('The system is not controllable')
 else
     P.K = place(A, B, des_poles);
-    P.kr = -1.0/(C(1,:)*inv(A-B*K)*B);
+    P.kr = -1.0/(C(1,:)*inv(A-B*P.K)*B);
 end
 
 sprintf('K: (%f, %f, %f, %f)\nkr: %f\n', P.K(1), P.K(2), P.K(3), P.K(4), P.kr)

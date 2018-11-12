@@ -7,8 +7,8 @@ VTOLParam % general arm parameters
 P.f_e = P.mc*P.g+2*P.mr*P.g;
 
 
-tr_h = 2;%7; %Rise time for height (longitudinal control)
-tr_th = .8;%.8;          % Rise time for inner loop (theta)
+tr_h = 1.5;%7; %Rise time for height (longitudinal control)
+tr_th = .3;%.8;          % Rise time for inner loop (theta)
 
 M = 10.0;%10.0;              % Time scale separation between inner and outer loop
 tr_z = M*tr_th;  % desired rise time, s
@@ -30,7 +30,7 @@ C = [1 0];
 
 
 
-des_char_poly = [1,2*zeta_h*wn_z,wn_h^2];
+des_char_poly = [1,2*zeta_h*wn_h,wn_h^2];
 des_poles = roots(des_char_poly);
 % is the system controllable?
 if (det(ctrb(A,B))==0) 
