@@ -32,7 +32,7 @@ des_char_poly = conv(conv([1, 2*zeta_z*wn_z, wn_z^2], [1, 2*zeta_th*wn_th, wn_th
 des_poles = roots(des_char_poly);
 
 % Compute the gains if the system is controllable
-if det(ctrb(A, B)) == 0
+if det(ctrb(A1, B1)) == 0
     disp('The system is not controllable')
 else
     K1 = place(A1, B1, des_poles);

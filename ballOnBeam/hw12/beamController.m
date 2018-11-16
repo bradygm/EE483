@@ -63,8 +63,12 @@ classdef beamController < handle
             F_tilda = -self.K*x - self.ki*self.integrator;
 
             
+            
             Ftemp = F_tilda + (self.m2*self.g*self.ell+2*self.m1*self.g*z)/(2*self.ell);
-            F = self.saturate(Ftemp);
+            Fsat = self.saturate(Ftemp);
+            self.integratorAntiWindup( Fsat, Ftemp);
+            F = Fsat;
+            
         end
         %----------------------------
         function self = differentiateZ(self, z)
@@ -84,6 +88,13 @@ classdef beamController < handle
         function self = integrateError(self, error)
             self.integrator = self.integrator + (self.Ts/2.0)*(error+self.error_d1);
             self.error_d1 = error;
+        end
+        %----------------------------
+        function self = integratorAntiWindup(self, u_sat, u_unsat)
+            % integrator anti-windup
+            if self.ki~=0
+                self.integrator = self.integrator + self.Ts/self.ki*(u_sat-u_unsat);
+            end
         end
         %----------------------------
         function out = saturate(self,u)

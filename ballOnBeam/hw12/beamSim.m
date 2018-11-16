@@ -11,7 +11,7 @@ frequency = 0.05; % frequency of reference input
 reference = signalGenerator(amplitude, frequency,offset);  
 
 % set disturbance input
-disturbance = 0.5;
+disturbance = 1;
 
 % instantiate the data plots and animation
 dataPlot = plotDataBeam(P);

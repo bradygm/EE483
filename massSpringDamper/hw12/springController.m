@@ -62,8 +62,10 @@ classdef springController < handle
             % Compute the state feedback controller
             z_tilde = -self.K*x - self.ki*self.integrator;
 
-
-            force = self.saturate(z_tilde + 0);
+            
+            zSat = self.saturate(z_tilde + 0);
+%             self.integratorAntiWindup(zSat, z_tilde);
+            force = zSat;
         end
         %----------------------------
         function self = differentiateZ(self, z)
@@ -83,6 +85,13 @@ classdef springController < handle
                 u = self.limit*sign(u);
             end
             out = u;
+        end
+         %----------------------------
+        function self = integratorAntiWindup(self, u_sat, u_unsat)
+            % integrator anti-windup
+            if self.ki~=0
+                self.integrator = self.integrator + self.Ts/self.ki*(u_sat-u_unsat);
+            end
         end
     end
 end
