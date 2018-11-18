@@ -11,6 +11,7 @@ classdef vtolDynamics < handle
         u
         g
         Ts
+        windDisturbance
     end
     %----------------------------
     methods
@@ -42,6 +43,7 @@ classdef vtolDynamics < handle
             self.d = P.d * (1+2*alpha*rand-alpha);    % Damping coefficient, Ns
             self.u = P.u * (1+2*alpha*rand-alpha); 
             self.Ts = P.Ts; % sample rate at which dynamics is propagated
+            self.windDisturbance = .1;
           
         end
         %----------------------------
@@ -79,7 +81,7 @@ classdef vtolDynamics < handle
                 0, 0, self.Jc+2*self.mr*self.d^2;...
                 ];
             c = [...
-                (-fr-fl)*sin(theta)-self.u*zdot;...
+                (-fr-fl)*sin(theta)+self.windDisturbance-self.u*zdot;...
                 (-self.mc-2*self.mr)*self.g+(fr+fl)*cos(theta);...
                 (fr-fl)*self.d;...
                 ];

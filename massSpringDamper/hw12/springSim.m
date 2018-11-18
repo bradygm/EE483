@@ -7,6 +7,7 @@ ctrl = springController(P);
 amplitude = .5; % amplitude of reference input
 frequency = 0.01; % frequency of reference input
 reference = signalGenerator(amplitude, frequency); 
+disturbance = .25;
 
 
 % instantiate the data plots and animation
@@ -22,7 +23,7 @@ while t < P.t_end
     t_next_plot = t + P.t_plot;
     while t < t_next_plot % updates control and dynamics at faster simulation rate
         u = ctrl.u(ref_input, spring.outputs());  % Calculate the control value
-        spring.propagateDynamics(u+.25);  % Propagate the dynamics
+        spring.propagateDynamics(u+disturbance);  % Propagate the dynamics
         t = t + P.Ts; % advance time by Ts
     end
     % update animation and data plots   

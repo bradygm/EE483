@@ -87,13 +87,17 @@ classdef vtolController < handle
         end
         %----------------------------
         function self = integrateErrorZ(self, error)
-            self.integrator_lat = self.integrator_lat + (self.Ts/2.0)*(error+self.errorlat_d1);
-            self.errorlat_d1 = error;
+            if abs(self.z_dot) < 2
+                self.integrator_lat = self.integrator_lat + (self.Ts/2.0)*(error+self.errorlat_d1);
+                self.errorlat_d1 = error;
+            end
         end
         %----------------------------
         function self = integrateErrorH(self, error)
-            self.integrator_lon = self.integrator_lon + (self.Ts/2.0)*(error+self.errorlon_d1);
-            self.errorlon_d1 = error;
+            if abs(self.h_dot) < 2
+                self.integrator_lon = self.integrator_lon + (self.Ts/2.0)*(error+self.errorlon_d1);
+                self.errorlon_d1 = error;
+            end
         end
         %----------------------------
         function self = differentiateZ(self, z)

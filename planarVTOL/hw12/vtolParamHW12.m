@@ -8,7 +8,7 @@ P.f_e = P.mc*P.g+2*P.mr*P.g;
 
 
 tr_h = 1.5;%7; %Rise time for height (longitudinal control)
-tr_th = .3;%.8;          % Rise time for inner loop (theta)
+tr_th = .2;%.8;          % Rise time for inner loop (theta)
 
 M = 10.0;%10.0;              % Time scale separation between inner and outer loop
 tr_z = M*tr_th;  % desired rise time, s
@@ -22,7 +22,7 @@ wn_th = 2.2/tr_th;     % Natural frequency
 wn_z = 2.2/tr_z;  % desired natural frequency
 
 integrator_pole_lon = -.8; % integrator pole
-integrator_pole_lat = -.65; % integrator pole
+integrator_pole_lat = -.95; % integrator pole
 
 % state space design for h control
 A = [0 1;
