@@ -27,7 +27,7 @@ classdef ballBeamDynamics < handle
             % that represents alpha*100 % of the parameter, i.e., alpha = 0.2, means that the parameter
             % may change by up to 20%.  A different parameter value is chosen every time the simulation
             % is run.
-            alpha = 0.2;  % Uncertainty parameter
+            alpha = 0.0;  % Uncertainty parameter
             self.m1 = P.m1 * (1+2*alpha*rand-alpha);  % Mass of the pendulum, kg
             self.m2 = P.m2 * (1+2*alpha*rand-alpha);  % Mass of the cart, kg
             self.ell = P.ell * (1+2*alpha*rand-alpha);  % Length of the rod, m
@@ -82,8 +82,8 @@ classdef ballBeamDynamics < handle
             z = self.state(1);
             theta = self.state(2);
             % add Gaussian noise to outputs
-            z_m = z + 0.001*randn;
-            theta_m = theta + 0.001*randn;
+            z_m = z + 0.00*randn;
+            theta_m = theta + 0.00*randn;
             % return measured outputs
             y = [z_m; theta_m];
         end
