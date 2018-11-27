@@ -26,7 +26,7 @@ classdef beamController < handle
         %----------------------------
         function self = beamController(P)
             % Instantiates the SS_ctrl object
-            self.x_hat = [0.0; 0.0; 0.0; 0.0];
+            self.x_hat = [P.z0; 0.0; 0.0; 0.0];
             self.F_d1 = 0.0;
             self.m2 = P.m2;
             self.g = P.g;
@@ -76,7 +76,7 @@ classdef beamController < handle
             for i=1:N
                 self.x_hat = self.x_hat + self.Ts/N*(...
                     self.A*self.x_hat...
-                    + self.B*self.F_d1...
+                    + self.B*(self.F_d1-(self.m2*self.g*self.ell+2*self.m1*self.g*self.x_hat(1))/(2*self.ell))...
                     + self.L*(y_m-self.C*self.x_hat));
             end
         end

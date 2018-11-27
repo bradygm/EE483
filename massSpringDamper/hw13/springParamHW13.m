@@ -5,11 +5,11 @@ springParam % general arm parameters
 %  tuning parameters
 %tr = 0.8; % part (a)
 % tr = 3.5;
-tr = 2.2;
-integrator_pole = -3;
+tr = 1.3; %2.2
+integrator_pole = -1.5; %-3
 zeta = .707;
 
-wn_obs = 10;  % natural frequency for observer
+wn_obs = .88;  % natural frequency for observer
 zeta_obs = 0.707; % damping ratio for observer
 
 % equalibrium position and force

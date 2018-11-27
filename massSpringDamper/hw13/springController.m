@@ -59,7 +59,6 @@ classdef springController < handle
 
             
             zSat = self.saturate(z_tilde + f_e);
-            self.integratorAntiWindup(zSat, z_tilde);
             force = zSat;
             self.updateForce(force);
         end

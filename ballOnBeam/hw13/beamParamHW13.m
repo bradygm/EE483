@@ -6,7 +6,7 @@ beamParam % general pendulum parameters
 %      State Space Pole Placement
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % tuning parameters
-tr_th = .15;%.35;          % Rise time for inner loop (theta)
+tr_th = .1;%.35;          % Rise time for inner loop (theta)
 zeta_th = 0.707;       % Damping Coefficient for inner loop (theta)
 wn_th = 2.2/tr_th;     % Natural frequency
 M = 10.0;              % Time scale separation between inner and outer loop
@@ -14,11 +14,11 @@ M = 10.0;              % Time scale separation between inner and outer loop
 tr_z = M*tr_th;  % desired rise time, s
 zeta_z = 0.707;        % Damping Coefficient fop outer loop (z)
 wn_z = 2.2/tr_z;  % desired natural frequency
-integrator_pole = -3; % integrator pole
+integrator_pole = -1; % integrator pole
 
 % tuning parameters for observer
-tr_z_obs = tr_z/5;
-tr_theta_obs = tr_th/5;
+tr_z_obs = tr_z/7;
+tr_theta_obs = tr_th/4;
 
 a = P.m2*P.ell^2/3+P.m1*P.z0^2;
 A = [0 0 1 0;
