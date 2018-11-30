@@ -34,7 +34,7 @@ classdef vtolDynamics < handle
             % may change by up to 20%.  A different parameter value is chosen every time the simulation
             % is run.
 %             alpha = 0.2;  % Uncertainty parameter
-            alpha = 0.2;
+            alpha = 0.0;
             self.Jc = P.Jc * (1+2*alpha*rand-alpha);  % inertia of base
             self.mc = P.mc * (1+2*alpha*rand-alpha);  % 
             self.mr = P.mr; % * (1+2*alpha*rand-alpha);    
@@ -43,7 +43,7 @@ classdef vtolDynamics < handle
             self.d = P.d * (1+2*alpha*rand-alpha);    % Damping coefficient, Ns
             self.u = P.u * (1+2*alpha*rand-alpha); 
             self.Ts = P.Ts; % sample rate at which dynamics is propagated
-            self.windDisturbance = .1;
+            self.windDisturbance = 0;
           
         end
         %----------------------------
@@ -103,9 +103,9 @@ classdef vtolDynamics < handle
             height = self.state(2);
             theta = self.state(3);
             % add Gaussian noise to outputs
-            theta_m = theta + 0.001*randn;
-            h_m = height + 0.001*randn;
-            z_m = z + 0.001*randn;
+            theta_m = theta + 0.00*randn;
+            h_m = height + 0.00*randn;
+            z_m = z + 0.00*randn;
             % return measured outputs
             y = [h_m; z_m; theta_m];
         end

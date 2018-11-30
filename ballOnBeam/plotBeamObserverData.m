@@ -45,7 +45,7 @@ classdef plotBeamObserverData < handle
                 self.z_handle = plot(self.time_history, self.z_history, 'b');
                 self.z_hat_handle = plot(self.time_history, self.z_hat_history, 'g');
                 ylabel('z(m)')
-                title('Pendulum State and Observed State')
+                title('Ball Beam State and Observed State')
             subplot(4, 1, 2)
                 hold on
                 self.theta_handle = plot(self.time_history, self.theta_history, 'b');

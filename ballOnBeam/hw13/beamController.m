@@ -58,13 +58,13 @@ classdef beamController < handle
             
             % Construct the state
             x = self.x_hat;
-            x(1) = x(1)-.25;
+            x(1) = x(1)-self.ell/2;
             
             % Compute the state feedback controller
             F_tilda = -self.K*x - self.ki*self.integrator;
 
             
-            Ftemp = F_tilda + (self.m2*self.g*self.ell+2*self.m1*self.g*x(1))/(2*self.ell);
+            Ftemp = F_tilda + (self.m2*self.g*self.ell+2*self.m1*self.g*(self.ell/2))/(2*self.ell);
             Fsat = self.saturate(Ftemp);
             self.updateForce(Fsat);
             F = Fsat;
@@ -75,8 +75,8 @@ classdef beamController < handle
             N = 10;
             for i=1:N
                 self.x_hat = self.x_hat + self.Ts/N*(...
-                    self.A*self.x_hat...
-                    + self.B*(self.F_d1-(self.m2*self.g*self.ell+2*self.m1*self.g*self.x_hat(1))/(2*self.ell))...
+                    self.A*(self.x_hat-[self.ell/2;0;0;0])...
+                    + self.B*(self.F_d1-(self.m2*self.g*self.ell+2*self.m1*self.g*(self.ell/2))/(2*self.ell))...
                     + self.L*(y_m-self.C*self.x_hat));
             end
         end
