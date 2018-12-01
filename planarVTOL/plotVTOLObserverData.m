@@ -52,7 +52,7 @@ classdef plotVTOLObserverData < handle
 
             % Create figure and axes handles
             figure(3), clf
-            title('VTOL State and Observed State')
+            
             subplot(3, 2, 5)
                 hold on
                 self.theta_handle = plot(self.time_history, self.theta_history, 'b');
@@ -68,6 +68,8 @@ classdef plotVTOLObserverData < handle
                 self.z_handle = plot(self.time_history, self.z_history, 'b');
                 self.z_hat_handle = plot(self.time_history, self.z_hat_history, 'g');
                 ylabel('Z')
+                title('VTOL State and Observed State')
+
             subplot(3, 2, 6)
                 hold on
                 self.theta_dot_handle = plot(self.time_history, self.theta_dot_history, 'b');
@@ -115,6 +117,11 @@ classdef plotVTOLObserverData < handle
             set(self.theta_hat_dot_handle, 'Xdata', self.time_history, 'Ydata', self.theta_hat_dot_history)
             set(self.h_hat_dot_handle, 'Xdata', self.time_history, 'Ydata', self.h_hat_dot_history)
             set(self.z_hat_dot_handle, 'Xdata', self.time_history, 'Ydata', self.z_hat_dot_history)
+        end
+         %----------------------------
+        function self = error(self)
+           figure(4)
+           plot(self.time_history,(self.z_history-self.z_hat_history))
         end
     end
 end

@@ -37,5 +37,6 @@ while t < P.t_end
     dataPlot.updatePlots(t, ref_input, ref_zt, vtol.state, Fl,Fr);
     observerPlot.updatePlots(t, vtol.states, ctrl.x_hat);
 end
+observerPlot.error();
 
 
