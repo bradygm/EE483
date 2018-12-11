@@ -1,4 +1,4 @@
-
+rng(2)
 beamParamHW14;  % load parameters
 
 
