@@ -13,18 +13,27 @@ ki_z = -0.1000;
 P = tf([3*ell],[m2*ell^2 + 3*m1*.25,0,0])
 C_pd = tf([(kd_th+kp_th*sigma),kp_th],[sigma, 1])
 figure(1)
-bode(P)
+margin(series(P,C_pd))
 hold on
-bode(series(P,C_pd))
+margin(P*C_pd/(1+P*C_pd))
+
+
 % bode(tf([1],[1 0]))
-legend('Plant','PID')
+legend('Open Loop','Closed Loop')
 
 Pz = tf([-9.8],[1,0,0])
 C_pid = tf([(kd_z+kp_z*sigma),(kp_z+ki_z*sigma),ki_z],[sigma,1,0])
 ref = tf([1.2],[1,0,.36])
 figure(2)
-bode(Pz)
+margin(series(Pz,C_pid))
 hold on
-bode(series(Pz,C_pid),ref)
+margin(Pz*C_pid/(1+Pz*C_pid))
+hold on
+P = tf([3*ell],[m2*ell^2 + 3*m1*.25,0,0])
+C_pd = tf([(kd_th+kp_th*sigma),kp_th],[sigma, 1])
+bode(series(P,C_pd))
+hold on
+bode(P*C_pd/(1+P*C_pd))
+
 % bode(tf([1],[1 0]))
-legend('Plant','PID')
+legend('Open Loop','Closed Loop')
