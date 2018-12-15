@@ -1,42 +1,69 @@
 % inverted pendulum - parameter file for hw8
 addpath ./.. % adds the parent directory to the path
 beamParam % general pendulum parameters
+P.F_max = 30;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %Loop Shaping
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Inner
 s = tf('s');
-Pin = tf([3*P.ell],[P.m2*P.ell^2 + 3*P.m1*P.ell/2,0,0]);
-% y = logspace(0,5);
+% Pin = tf([3*P.ell],[P.m2*P.ell^2 + 3*P.m1*(P.ell/2)^2,0,0])
+Pin = tf([(P.ell/(P.m2*P.ell^2/3+P.m1*(P.ell/2)^2))],[1,0,0]);
+
+figure(1)
+bodemag(Pin,{.01,10000})
+hold on
+
+omega_r = 10^0;
+gamma_r = 10^(-50/20);
+w = logspace(log10(omega_r)-2,log10(omega_r));
+plot(w,20*log10(1/gamma_r)*ones(size(w)),'g')
+
+omega_n = 10^3;
+gamma_n = 10^(-50/20);
+w = logspace(log10(omega_n),2+log10(omega_n));
+plot(w,20*log10(gamma_n)*ones(size(w)),'g')
+
+%Mine
 Cp = 200;
 z = 10;
 m = 15;
 Clead = (z*m/z)*(s + z)/(s+z*m);
 p = 600;
 Clow = p/(s+p);
-% C_in = Cp*Cpi*Clag*Clow*Clead;
-figure(1)
-bodemag(Pin,{.01,10000})
-hold on
-w = logspace(log10(.01),log10(1));
-plot(w,20*log10(1/.0032)*ones(size(w)),'g')
-w = logspace(log10(1000),log10(10000));
-plot(w,20*log10(.0032)*ones(size(w)),'g')
-% bode(Pin*Cp,{.01,10000})
-margin(Pin*Cp*Clead*Clow)
+margin(Pin*Cp*Clead*Clow);
+C = Cp*Clead*Clow;
+
+%Hers
+Cp = 150;
+wmax = 40;
+M = 15;
+Clead = tf(M*[1,wmax/sqrt(M)],[1,wmax*sqrt(M)]);
+p = 500;
+Clow = tf(p,[1,p]);
 
 C = Cp*Clead*Clow;
+margin(Pin*C);
+
+
+
+% C_in = Cp*Cpi*Clag*Clow*Clead;
+
+% w = logspace(log10(.01),log10(1));
+% plot(w,20*log10(1/.0032)*ones(size(w)),'g')
+% w = logspace(log10(1000),log10(10000));
+% plot(w,20*log10(.0032)*ones(size(w)),'g')
+% bode(Pin*Cp,{.01,10000})
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Convert controller to state space equations for implementation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [num,den] = tfdata(C,'v');
 [P.Ain_C,P.Bin_C,P.Cin_C,P.Din_C]=tf2ss(num,den);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Convert controller to discrete transfer functions for implementation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-C_in_d = c2d(C,P.Ts,'tustin')
-[P.Cin_d_num,P.Cin_d_den] = tfdata(C_in_d,'v');
+
 C_in = C;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -44,34 +71,62 @@ C_in = C;
 F = tf([1],[1]);
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% low pass filter
-p = 1; % frequency to start the LPF
-LPF = tf(p,[1 p]);
-F = F*LPF;
+% % low pass filter
+% p = 1; % frequency to start the LPF
+% LPF = tf(p,[1 p]);
+% F = F*LPF;
 
 
-%%%%%Outer
-Pout = tf([-9.8],[1,0,0]);
-Ptot = Pout*(Pin*Cp*Clead*Clow)/(1+ Pin*Cp*Clead*Clow);
+%% Outer
+Pout = tf([-P.g],[1,0,0]);
+Ptot = minreal(Pout*(Pin*C_in)/(1+ Pin*C_in));
 
 figure(2)
 bodemag(Ptot,{.01,10000})
 hold on
+omega_r = 10^-1;
+gamma_r = 10^(-40/20);
+w = logspace(log10(omega_r)-2,log10(omega_r));
+plot(w,20*log10(1/gamma_r)*ones(size(w)),'g')
+
+omega_n = 10^2;
+gamma_n = 10^(-60/20);
+w = logspace(log10(omega_n),2+log10(omega_n));
+plot(w,20*log10(gamma_n)*ones(size(w)),'g')
+
+%Mine
 z = 20;
 m = 10;
 Clead = (s + z)/(s+z/m);
 z = 20;
 m = 10;
 Clag = (s + z)/(s+z/m);
-
 margin(Ptot*Clag*Clead)
-legend('w/o','With')
-w = logspace(log10(.01),log10(.1));
-plot(w,20*log10(1/.01)*ones(size(w)),'g')
-w = logspace(log10(100),log10(1000));
-plot(w,20*log10(.001)*ones(size(w)),'g')
-
+legend('w/o','','','With')
 C = Clag*Clead;
+
+
+%Hers
+Cp = -.1;
+ki = .3;
+Cpi = tf([1,ki],[1,0]);
+wmax = 2;
+M = 25;
+Clead = tf(M*[1,wmax/sqrt(M)],[1,wmax*sqrt(M)]);
+p = 50;
+Clow = tf(p,[1,p]);
+C = Cp*Cpi*Clead*Clow;
+margin(Ptot*C)
+
+
+
+F = tf([1],[1]);
+p = 1;
+Clow = tf(p, [1,p]);
+F = F*Clow;
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Convert controller to state space equations for implementation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -81,15 +136,6 @@ C=minreal(C);
 
 [num,den] = tfdata(F,'v');
 [P.Aout_F, P.Bout_F, P.Cout_F, P.Dout_F] = tf2ss(num,den);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Convert controller to discrete transfer functions for implementation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                                                
-C_out_d = c2d(C,P.Ts,'tustin');
-[P.Cout_d_num,P.Cout_d_den] = tfdata(C_out_d,'v');
-
-F_d = c2d(F,P.Ts,'tustin');
-[P.F_d_num,P.F_d_den] = tfdata(F_d,'v');
 
 C_out = C;
 

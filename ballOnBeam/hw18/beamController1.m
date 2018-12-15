@@ -49,7 +49,7 @@ classdef beamController1 < handle
             self.Bin_C = P.Bin_C;
             self.Cin_C = P.Cin_C;
             self.Din_C = P.Din_C;
-            self.limit = 15;
+            self.limit = P.F_max;
             self.Ts = P.Ts;
             self.N = 10; % number of Euler integration steps for each sample
             self.ell = P.ell;

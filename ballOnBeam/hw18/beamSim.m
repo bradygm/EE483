@@ -7,9 +7,9 @@ end
 % Instantiate Dynamics class
 beam = ballBeamDynamics(P); 
 ctrl = beamController1(P);  
-amplitude = 0.15; % amplitude of reference input
+amplitude = 0.125; % amplitude of reference input
 offset = 0.25;
-frequency = 0.05; % frequency of reference input
+frequency = 0.02; % frequency of reference input
 reference = signalGenerator(amplitude, frequency,offset);  
 
 % set disturbance input
@@ -35,7 +35,6 @@ while t < P.t_end
     % update animation and data plots
     animation.drawBeamBall(beam.states);
     dataPlot.updatePlots(t, ref_input, beam.state, u);
-    pause(.5)
 end
 
 
