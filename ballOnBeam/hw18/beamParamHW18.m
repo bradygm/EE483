@@ -107,16 +107,16 @@ C = Clag*Clead;
 
 
 %Hers
-Cp = -.1;
-ki = .3;
-Cpi = tf([1,ki],[1,0]);
-wmax = 2;
-M = 25;
-Clead = tf(M*[1,wmax/sqrt(M)],[1,wmax*sqrt(M)]);
-p = 50;
-Clow = tf(p,[1,p]);
-C = Cp*Cpi*Clead*Clow;
-margin(Ptot*C)
+% Cp = -.1;
+% ki = .3;
+% Cpi = tf([1,ki],[1,0]);
+% wmax = 2;
+% M = 25;
+% Clead = tf(M*[1,wmax/sqrt(M)],[1,wmax*sqrt(M)]);
+% p = 50;
+% Clow = tf(p,[1,p]);
+% C = Cp*Cpi*Clead*Clow;
+% margin(Ptot*C)
 
 
 

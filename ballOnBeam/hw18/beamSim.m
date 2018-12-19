@@ -10,10 +10,10 @@ ctrl = beamController1(P);
 amplitude = 0.125; % amplitude of reference input
 offset = 0.25;
 frequency = 0.02; % frequency of reference input
-reference = signalGenerator(amplitude, frequency,offset);  
+reference = signalGenerator(amplitude, frequency, offset);  
 
 % set disturbance input
-disturbance = 0.0;
+disturbance = 0.5;
 
 % instantiate the data plots and animation
 dataPlot = plotDataBeam(P);
@@ -24,7 +24,6 @@ t = P.t_start;  % time starts at t_start
 while t < P.t_end  
     % Get referenced inputs from signal generators
     ref_input = reference.square(t);
-    ref_input = .25;
     % Propagate dynamics in between plot samples
     t_next_plot = t + P.t_plot;
     while t < t_next_plot % updates control and dynamics at faster simulation rate
